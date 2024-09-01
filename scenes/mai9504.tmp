@@ -1,0 +1,65 @@
+[gd_scene load_steps=11 format=3 uid="uid://esywf0ii8i6u"]
+
+[ext_resource type="Script" path="res://scenes/main.gd" id="1_fmw02"]
+[ext_resource type="PackedScene" uid="uid://beaa828xfn3nx" path="res://scenes/snake_segment.tscn" id="2_io2sj"]
+[ext_resource type="Texture2D" uid="uid://c0eqge2rmrfty" path="res://assets/craiyon_154337_Simple_background_for_a_kids_app.png" id="3_j8x56"]
+[ext_resource type="PackedScene" uid="uid://tmcq5gpw66gu" path="res://scenes/hud.tscn" id="3_s77pf"]
+[ext_resource type="Texture2D" uid="uid://b0bmox0pgfvol" path="res://assets/MOUSE FOOD .png" id="5_jmeep"]
+[ext_resource type="Texture2D" uid="uid://dmlut1wmifc5w" path="res://assets/transparent_2024-05-31T07-43-43.png" id="5_u75mn"]
+[ext_resource type="PackedScene" uid="uid://cad25ojl47q8" path="res://scenes/game_over_menu.tscn" id="6_xkat8"]
+[ext_resource type="PackedScene" uid="uid://dx4rexrdavm1q" path="res://scenes/game_start_menu.tscn" id="7_nplam"]
+
+[sub_resource type="Theme" id="Theme_ba4ts"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_82xlb"]
+bg_color = Color(0.910308, 0.762026, 0.98475, 1)
+
+[node name="Main" type="Node"]
+script = ExtResource("1_fmw02")
+snake_scene = ExtResource("2_io2sj")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(501.5, 525)
+scale = Vector2(0.975586, 1.01953)
+texture = ExtResource("3_j8x56")
+
+[node name="Hud" parent="." instance=ExtResource("3_s77pf")]
+
+[node name="Button" type="Button" parent="Hud"]
+visible = false
+offset_left = 343.0
+offset_right = 1375.0
+offset_bottom = 1032.0
+scale = Vector2(0.0574411, 0.0485014)
+theme = SubResource("Theme_ba4ts")
+theme_override_colors/font_color = Color(0.478431, 0.792157, 0.117647, 1)
+theme_override_colors/font_outline_color = Color(0.323581, 0.637583, 0.887194, 1)
+theme_override_font_sizes/font_size = 30
+theme_override_styles/hover = SubResource("StyleBoxFlat_82xlb")
+icon = ExtResource("5_u75mn")
+
+[node name="MoveTimer" type="Timer" parent="."]
+wait_time = 0.1
+
+[node name="Mouse" type="Sprite2D" parent="."]
+position = Vector2(31.246, 23.8182)
+scale = Vector2(0.0647187, 0.0655154)
+texture = ExtResource("5_jmeep")
+centered = false
+offset = Vector2(25, 25)
+
+[node name="GameOverMenu" parent="." instance=ExtResource("6_xkat8")]
+process_mode = 2
+
+[node name="start_menu" parent="." instance=ExtResource("7_nplam")]
+
+[node name="TemporaryMessage" type="Panel" parent="."]
+offset_left = 638.0
+offset_top = 7.0
+offset_right = 965.0
+offset_bottom = 47.0
+
+[connection signal="pressed" from="Hud/Button" to="." method="_on_button_pressed"]
+[connection signal="timeout" from="MoveTimer" to="." method="_on_move_timer_timeout"]
+[connection signal="restart" from="GameOverMenu" to="." method="_on_game_over_menu_restart"]
+[connection signal="restart" from="start_menu" to="." method="_on_start_menu_restart"]

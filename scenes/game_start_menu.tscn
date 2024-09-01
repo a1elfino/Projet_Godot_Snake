@@ -1,0 +1,98 @@
+[gd_scene load_steps=11 format=3 uid="uid://dx4rexrdavm1q"]
+
+[ext_resource type="Script" path="res://scenes/game_start_menu.gd" id="1_4g5jd"]
+[ext_resource type="FontFile" uid="uid://r5ttqaxnuvgk" path="res://assets/MaldiniBold.ttf" id="2_ln406"]
+[ext_resource type="Script" path="res://scenes/option_button.gd" id="2_r6xfe"]
+[ext_resource type="Texture2D" uid="uid://6xgmlq62ldh8" path="res://assets/360_F_527115772_tz5p3ClzXa8G2UvGgJDPy6KMpcakzTXo.png" id="2_se4iv"]
+[ext_resource type="Texture2D" uid="uid://c1nqyixhkod4l" path="res://assets/SNAKE AI.png" id="3_0ilka"]
+[ext_resource type="Texture2D" uid="uid://dkr62hnov83g6" path="res://assets/Mouse NINJA AI.png" id="5_q2ch6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_opamj"]
+bg_color = Color(0.776471, 1, 0.886275, 1)
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 200
+corner_radius_top_right = 200
+corner_radius_bottom_right = 200
+corner_radius_bottom_left = 200
+shadow_color = Color(1, 1, 1, 0.6)
+
+[sub_resource type="Theme" id="Theme_x1cts"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hrv4q"]
+bg_color = Color(0.856934, 0.819962, 0.992385, 1)
+corner_radius_top_left = 800
+corner_radius_top_right = 800
+corner_radius_bottom_right = 800
+corner_radius_bottom_left = 800
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_05e1f"]
+modulate_color = Color(0, 0, 0, 1)
+
+[node name="start_menu" type="CanvasLayer"]
+script = ExtResource("1_4g5jd")
+
+[node name="Panel" type="Panel" parent="."]
+offset_left = 71.0
+offset_top = 65.0
+offset_right = 923.0
+offset_bottom = 810.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_opamj")
+
+[node name="Button" type="Button" parent="."]
+modulate = Color(0.776471, 1, 0.886275, 1)
+self_modulate = Color(0.776471, 1, 0.886275, 1)
+offset_left = 304.0
+offset_top = 502.0
+offset_right = 777.0
+offset_bottom = 870.0
+scale = Vector2(0.851412, 0.748078)
+theme = SubResource("Theme_x1cts")
+theme_type_variation = &"FlatButton"
+theme_override_font_sizes/font_size = 30
+theme_override_styles/hover = SubResource("StyleBoxFlat_hrv4q")
+icon = ExtResource("2_se4iv")
+
+[node name="Label" type="Label" parent="."]
+modulate = Color(0, 0, 0, 1)
+offset_left = 163.0
+offset_top = 326.0
+offset_right = 1198.0
+offset_bottom = 383.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_ln406")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_05e1f")
+text = "Please Choose difficulty Then start the game
+"
+
+[node name="OptionButton" type="OptionButton" parent="."]
+offset_left = 355.0
+offset_top = 408.0
+offset_right = 606.0
+offset_bottom = 484.0
+theme_override_colors/font_color = Color(0, 0.57313, 5.77569e-07, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.364706, 0.431373, 0.192157, 1)
+theme_override_fonts/font = ExtResource("2_ln406")
+theme_override_font_sizes/font_size = 30
+item_count = 3
+fit_to_longest_item = false
+popup/item_0/text = "Easy"
+popup/item_0/id = 0
+popup/item_1/text = "Medium"
+popup/item_1/id = 1
+popup/item_2/text = "Hard"
+popup/item_2/id = 2
+script = ExtResource("2_r6xfe")
+
+[node name="Snake" type="Sprite2D" parent="."]
+position = Vector2(158, 179)
+scale = Vector2(0.320362, 0.310467)
+texture = ExtResource("3_0ilka")
+
+[node name="Mouse Ninja" type="Sprite2D" parent="."]
+position = Vector2(862, 686)
+scale = Vector2(0.293506, 0.290936)
+texture = ExtResource("5_q2ch6")
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="item_selected" from="OptionButton" to="." method="_on_option_button_item_selected"]
